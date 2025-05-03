@@ -2,6 +2,10 @@
 using Domain.Entities.Segurity;
 using AutoMapper;
 using Domain.DTOs.Segurity;
+using Domain.Entities.Forms;
+using Domain.DTOs.Forms;
+using Domain.Entities.Configuration;
+using Domain.DTOs.Configuration;
 
 namespace Application.Mapping;
 
@@ -18,6 +22,8 @@ public class GeneralProfile : Profile
         CreateMap<PerfilAcceso, PerfilAccesoDTO>();
         CreateMap<Acceso, AccesoDTO>();
         CreateMap<Modulo, ModuloDTO>();
+        CreateMap<Gestion, GestionDTO>();
+        CreateMap<Entidad, EntidadDTO>();
         #endregion
 
         #region  DTO To Entity
@@ -27,6 +33,8 @@ public class GeneralProfile : Profile
         CreateMap<PerfilAccesoDTO, PerfilAcceso>();
         CreateMap<AccesoDTO, Acceso>();
         CreateMap<ModuloDTO, Modulo>();
+        CreateMap<GestionDTO, Gestion>();
+        CreateMap<EntidadDTO, Entidad>();
         #endregion
 
     }
