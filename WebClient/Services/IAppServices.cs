@@ -1,4 +1,6 @@
-﻿using Domain.Interfaces.Services.Segurity;
+﻿using Domain.Interfaces.Services.Configuration;
+using Domain.Interfaces.Services.Forms;
+using Domain.Interfaces.Services.Segurity;
 
 namespace WebClient.Services;
 
@@ -8,5 +10,10 @@ public interface IAppServices
     public IPerfilService PerfilService { get; }
     public IModuloService ModuloService { get; }
     public IUsuarioService UsuarioService { get; }
+
+    public IEntidadService EntidadService { get; }
+
+    public IGestionService GestionService { get; }
+    public IFormularioService FormularioService { get; }
 
 }

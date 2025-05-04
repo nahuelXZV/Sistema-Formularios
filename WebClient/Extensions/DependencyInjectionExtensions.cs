@@ -7,6 +7,10 @@ using WebClient.Configs;
 using WebClient.Services.Segurity;
 using WebClient.Common.Middlewares;
 using WebClient.Services.Implementacion;
+using Domain.Interfaces.Services.Configuration;
+using WebClient.Services.Configuration;
+using Domain.Interfaces.Services.Forms;
+using WebClient.Services.Forms;
 
 namespace WebClient.Extensions;
 
@@ -31,6 +35,12 @@ public static class DependencyInjectionExtensions
         services.AddScoped<IPerfilService, PerfilService>();
         services.AddScoped<IModuloService, ModuloService>();
         services.AddScoped<IUsuarioService, UsuarioService>();
+
+        services.AddScoped<IEntidadService, EntidadService>();
+        services.AddScoped<IConceptoService, ConceptoService>();
+
+        services.AddScoped<IGestionService, GestionService>();
+        services.AddScoped<IFormularioService, FormularioService>();
         #endregion
 
         return services;

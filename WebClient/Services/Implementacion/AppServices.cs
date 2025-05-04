@@ -1,4 +1,6 @@
-﻿using Domain.Interfaces.Services.Segurity;
+﻿using Domain.Interfaces.Services.Configuration;
+using Domain.Interfaces.Services.Forms;
+using Domain.Interfaces.Services.Segurity;
 
 namespace WebClient.Services.Implementacion;
 
@@ -12,6 +14,10 @@ public class AppServices : IAppServices
     private IPerfilService _perfilService;
     private IModuloService _moduloService;
     private IUsuarioService _usuarioService;
+    private IConceptoService _conceptoService;
+    private IEntidadService _entidadService;
+    private IGestionService _gestionService;
+    private IFormularioService _formularioService;
 
     public AppServices(IServiceProvider serviceProvider, ILogger<AppServices> logger)
     {
@@ -27,6 +33,12 @@ public class AppServices : IAppServices
     #endregion
 
     #region CONFIGURACION
+    public IConceptoService ConceptoService => _conceptoService ??= _serviceProvider.GetService<IConceptoService>();
+    public IEntidadService EntidadService => _entidadService ??= _serviceProvider.GetService<IEntidadService>();
+    #endregion
 
+    #region FORMULARIOS
+    public IGestionService GestionService => _gestionService ??= _serviceProvider.GetService<IGestionService>();
+    public IFormularioService FormularioService => _formularioService ??= _serviceProvider.GetService<IFormularioService>();
     #endregion
 }
