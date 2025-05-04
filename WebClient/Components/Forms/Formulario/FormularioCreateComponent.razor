@@ -1,0 +1,257 @@
+﻿@using WebClient.Components.Shared.Elements
+@using Domain.DTOs.Configuration
+@using WebClient.Models.Shared;
+@inherits Components.MainBaseComponent;
+
+<div class="grid grid-cols-12 gap-2 p-2">
+	<IUCard CustomClass="col-span-6">
+		<Header>
+			<h3 class="text-lg font-semibold text-gray-900">Datos del formulario</h3>
+		</Header>
+
+		<Body>
+			<div class="grid grid-cols-12 gap-2">
+				<div class="col-span-12">
+					<IUInputText Label="Nombre"
+								 Placeholder="Escriba el nombre del formulario..."
+								 @bind-Value="Formulario.Nombre"
+								 Required=true />
+					@if (_validatorHelper.TieneErrores(nameof(Formulario.Nombre)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Formulario.Nombre))" />
+					}
+				</div>
+
+				<div class="col-span-3">
+					<IUInputNumeric Label="Ponderacion"
+									Placeholder="Escriba la ponderacion del formulario..."
+									TValue="double"
+									@bind-Value="Formulario.Ponderacion"
+									Required=true />
+					@if (_validatorHelper.TieneErrores(nameof(Formulario.Ponderacion)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Formulario.Ponderacion))" />
+					}
+				</div>
+				<div class="col-span-3">
+					<IUInputNumeric Label="Orden"
+									Placeholder="Escriba el orden del formulario..."
+									TValue="short"
+									@bind-Value="Formulario.Orden"
+									Required=true />
+					@if (_validatorHelper.TieneErrores(nameof(Formulario.Orden)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Formulario.Orden))" />
+					}
+				</div>
+
+				<div class="col-span-3">
+					<label class="block mb-2 ml-2 text-sm font-medium text-gray-900 dark:text-white">Estado</label>
+					<IUInputCheckbox Label="Activo"
+									 @bind-Value="Formulario.Activo" />
+					@if (_validatorHelper.TieneErrores(nameof(Formulario.Activo)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Formulario.Activo))" />
+					}
+				</div>
+
+
+				<div class="col-span-12 mt-4">
+					<IUTextArea Label="Descripcion"
+								Placeholder="Escriba una pequeña descripcion..."
+								@bind-Value="Formulario.Descripcion"
+								Rows="2"
+								Required=true />
+					@if (_validatorHelper.TieneErrores(nameof(Formulario.Descripcion)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Formulario.Descripcion))" />
+					}
+				</div>
+
+			</div>
+		</Body>
+	</IUCard>
+
+	<IUCard CustomClass="col-span-6">
+		<Header>
+			<div class="flex justify-between">
+				<h3 class="text-lg font-semibold text-gray-900">Datos de la pregunta</h3>
+				<IUButton Text="Guardar"
+						  IconCss="fa fa-save"
+						  OnClick="GuardarPregunta" />
+			</div>
+		</Header>
+
+		<Body>
+			<div class="grid grid-cols-12 gap-2">
+				<div class="col-span-12">
+					<IUInputText Label="Enunciado"
+								 Placeholder="Escriba el enunciado..."
+								 @bind-Value="Pregunta.Enunciado"
+								 Required=true />
+					@if (_validatorHelperPregunta.TieneErrores(nameof(Pregunta.Enunciado)))
+					{
+						<IULabelError ListaErrores="@_validatorHelperPregunta.GetErrores(nameof(Pregunta.Enunciado))" />
+					}
+				</div>
+
+				<div class="col-span-6">
+					<IUSelect TItem="SelectorGenerico<short>"
+							  TValue="short"
+							  Label="Tipo de pregunta"
+							  Placeholder="Escoge un tipo"
+							  Options="@ListaTipoPreguntas"
+							  GetText="@(c => c.Nombre)"
+							  GetValue="@(c => c.Valor)"
+							  @bind-Value="Pregunta.TipoId"
+							  Required="true" />
+
+					@if (_validatorHelperPregunta.TieneErrores(nameof(Pregunta.TipoId)))
+					{
+						<IULabelError ListaErrores="@_validatorHelperPregunta.GetErrores(nameof(Pregunta.TipoId))" />
+					}
+				</div>
+
+				<div class="col-span-3">
+					<IUInputNumeric Label="Ponderacion"
+									Placeholder="Escriba la ponderacion..."
+									TValue="double"
+									@bind-Value="Pregunta.Ponderacion"
+									Required=true />
+					@if (_validatorHelperPregunta.TieneErrores(nameof(Pregunta.Ponderacion)))
+					{
+						<IULabelError ListaErrores="@_validatorHelperPregunta.GetErrores(nameof(Pregunta.Ponderacion))" />
+					}
+				</div>
+				<div class="col-span-3">
+					<IUInputNumeric Label="Orden"
+									Placeholder="Escriba el orden..."
+									TValue="short"
+									@bind-Value="Pregunta.Orden"
+									Required=true />
+					@if (_validatorHelperPregunta.TieneErrores(nameof(Pregunta.Orden)))
+					{
+						<IULabelError ListaErrores="@_validatorHelperPregunta.GetErrores(nameof(Pregunta.Orden))" />
+					}
+				</div>
+
+				<div class="col-span-2 mt-4">
+					<IUInputCheckbox Label="Activo"
+									 @bind-Value="Pregunta.Activo" />
+					@if (_validatorHelperPregunta.TieneErrores(nameof(Pregunta.Activo)))
+					{
+						<IULabelError ListaErrores="@_validatorHelperPregunta.GetErrores(nameof(Pregunta.Activo))" />
+					}
+				</div>
+				<div class="col-span-2 mt-4">
+					<IUInputCheckbox Label="Requerido"
+									 @bind-Value="Pregunta.Requerido" />
+					@if (_validatorHelperPregunta.TieneErrores(nameof(Pregunta.Activo)))
+					{
+						<IULabelError ListaErrores="@_validatorHelperPregunta.GetErrores(nameof(Pregunta.Requerido))" />
+					}
+				</div>
+				<div class="col-span-3 mt-4">
+					<IUInputCheckbox Label="Habilitar Opciones"
+									 @bind-Value="HabilitarOpciones" />
+				</div>
+
+				@if (HabilitarOpciones)
+				{
+					<div class="col-span-12 mt-4">
+						<IUTextArea Label="Opciones (A,B)"
+									Placeholder="Escriba las opciones seguido de una coma (A,B)..."
+									@bind-Value="Pregunta.Opciones"
+									Rows="2"
+									Required=true />
+						@if (_validatorHelperPregunta.TieneErrores(nameof(Pregunta.Opciones)))
+						{
+							<IULabelError ListaErrores="@_validatorHelperPregunta.GetErrores(nameof(Pregunta.Opciones))" />
+						}
+					</div>
+				}
+
+				<div class="col-span-12 mt-4">
+					<IUTextArea Label="Descripcion"
+								Placeholder="Escriba una pequeña descripcion..."
+								@bind-Value="Pregunta.Descripcion"
+								Rows="2"
+								Required=true />
+					@if (_validatorHelperPregunta.TieneErrores(nameof(Pregunta.Descripcion)))
+					{
+						<IULabelError ListaErrores="@_validatorHelperPregunta.GetErrores(nameof(Pregunta.Descripcion))" />
+					}
+				</div>
+
+				<div class="col-span-12 mt-4">
+				</div>
+			</div>
+
+		</Body>
+	</IUCard>
+
+
+	<IUCard CustomClass="col-span-12">
+		<Header>
+			<div class="flex justify-between">
+				<h3 class="text-lg font-semibold text-gray-900">Lista de preguntas</h3>
+			</div>
+		</Header>
+		<Body>
+			<IUTable>
+				<HeaderContent>
+					<tr>
+						<th class="px-6 py-3">Enunciado</th>
+						<th class="px-6 py-3">Tipo</th>
+						<th class="px-6 py-3">Ponderacion</th>
+						<th class="px-6 py-3">Activo</th>
+						<th class="px-6 py-3">Requerido</th>
+						<th class="px-6 py-3"></th>
+					</tr>
+				</HeaderContent>
+				<BodyContent>
+					@foreach (var pregunta in ListaPreguntas)
+					{
+						<tr class="hover:bg-gray-50 transition duration-150 ease-in-out">
+							<td class="px-6 py-4">@pregunta.Enunciado</td>
+							<td class="px-6 py-4">@ObtenerNombreTipo(pregunta.TipoId)</td>
+							<td class="px-6 py-4">@pregunta.Ponderacion</td>
+							<td class="px-6 py-4">
+								@if (pregunta.Activo)
+								{
+									<i class="fa fa-check text-green-500"></i>
+								}
+								else
+								{
+									<i class="fa fa-times text-red-500"></i>
+								}
+							</td>
+							<td class="px-6 py-4">
+								@if (pregunta.Requerido)
+								{
+									<i class="fa fa-check text-green-500"></i>
+								}
+								else
+								{
+									<i class="fa fa-times text-red-500"></i>
+								}
+							</td>
+							<td class="px-6 py-4 flex">
+								<IUButton IconCss="fa fa-pencil"
+										  Text="Editar"
+										  OnClick="@(() => EditarPregunta(pregunta.Id))" />
+								@if (pregunta.Id < 0)
+								{
+									<IUButton IconCss="fa fa-trash"
+											  Text="Eliminar"
+											  OnClick="@(() => EliminarPregunta(pregunta.Id))" />
+								}
+							</td>
+						</tr>
+					}
+				</BodyContent>
+			</IUTable>
+
+		</Body>
+	</IUCard>
+</div>

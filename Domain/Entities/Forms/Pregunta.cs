@@ -14,7 +14,4 @@ public class Pregunta : Entity
     public string Opciones { get; set; }
     public short TipoId { get; set; }
     public long FormularioId { get; set; }
-
-
-    public Concepto Tipo { get; set; }
 }

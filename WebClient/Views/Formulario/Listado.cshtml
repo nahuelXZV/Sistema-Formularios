@@ -1,0 +1,62 @@
+﻿@using WebClient.Common
+@using WebClient.Models
+@using WebClient.Models.Forms
+@model FormularioViewModel
+
+@{
+	ViewData["Title"] = "Formularios";
+	ViewData["Module"] = "Formulario";
+	ViewData["Action"] = "Listado";
+	ViewData["Url"] = Url.Action("Listado", "Formulario");
+
+	Model.ListaItemsMenu = new List<ItemMenu>
+	{
+		new ItemMenu { Id = MenuItemId.Editar, Text = "Editar", IconCss = "fa fa-pencil", Url = Url.Action("Crear", "Formulario"), ActionType = MenuItemActionType.POST },
+		new ItemMenu { Id = MenuItemId.Eliminar, Text = "Eliminar", IconCss = "fa fa-trash", Url = Url.Action("Eliminar", "Formulario"), ActionType = MenuItemActionType.POST, Confirm = true, ConfirmMessage = "Esta seguro de eliminar este formulario?" },
+	};
+}
+
+@section ContentHeader {
+	<div class="inline-flex rounded-md shadow-xs" role="group">
+		<form id="FormCrear" action="/Formulario/Crear" method="post">@Html.AntiForgeryToken()</form>
+		<button form="FormCrear" type="submit" class="inline-flex items-center px-3 py-1 mr-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700">
+			<i class="fa fa-plus mr-1"></i>
+			Crear
+		</button>
+	</div>
+}
+
+<div class="rounded-2xl border border-gray-200 bg-white px-3 py-3">
+	<div id="table-wrapper" class=""></div>
+</div>
+
+@section Scripts {
+	<script>
+		new gridjs.Grid({
+			columns: ['Id', 'Nombre', "Descripcion",
+				{
+					name: 'Activo',
+					formatter: (cell, row) => {
+						if (cell == true) {
+							return gridjs.html('<i class="fa fa-check text-green-500"></i>');
+						} else {
+							return gridjs.html('<i class="fa fa-times text-red-500"></i>');
+						}
+					}
+				},
+				{
+					name: 'Acciones',
+					formatter: (cell, row) => gridjs.html(this.menuTableHandler(row._cells[0].data))
+				}
+			],
+			server: {
+			  url: urlWeb + "Formulario/GetAll",
+			  then: data => data.data.map(data => [
+				data.id, data.nombre, data.descripcion,  data.activo,
+			  ]),
+			  total: data => data.total
+			},
+			...this.optionsTable
+		}).render(document.getElementById("table-wrapper"));
+	</script>
+}

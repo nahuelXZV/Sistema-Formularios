@@ -1,0 +1,22 @@
+﻿<div>
+	<button id="@Id"
+			type="button"
+			class="@CssClass"
+			@onclick="OnClick"
+			disabled="@Disabled">
+		@if (!string.IsNullOrEmpty(IconCss))
+		{
+			<i class="@IconCss mr-1"></i>
+		}
+		@Text
+	</button>
+</div>
+@code {
+	[Parameter] public string Id { get; set; } = Guid.NewGuid().ToString();
+	[Parameter] public string Text { get; set; } = "";
+	[Parameter] public string CssClass { get; set; } = "inline-flex items-center px-3 py-1 mr-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700";
+	[Parameter] public string? IconCss { get; set; } = "fa fa-save";
+	[Parameter] public bool Disabled { get; set; } = false;
+
+	[Parameter] public EventCallback OnClick { get; set; }
+}

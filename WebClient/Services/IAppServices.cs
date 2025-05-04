@@ -12,6 +12,7 @@ public interface IAppServices
     public IUsuarioService UsuarioService { get; }
 
     public IEntidadService EntidadService { get; }
+    public IConceptoService ConceptoService { get; }
 
     public IGestionService GestionService { get; }
     public IFormularioService FormularioService { get; }

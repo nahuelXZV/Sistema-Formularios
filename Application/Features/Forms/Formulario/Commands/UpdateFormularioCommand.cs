@@ -6,12 +6,12 @@ using Domain.Interfaces.Shared;
 
 namespace Application.Features.Forms.Formulario.Commands;
 
-public class UpdateFormularioCommand : ICommand<Response<long>>
+public class UpdateFormularioCommand : ICommand<Response<bool>>
 {
     public required FormularioDTO FormularioDTO { get; set; }
 }
 
-public class UpdateFormularioHandler : ICommandHandler<UpdateFormularioCommand, Response<long>>
+public class UpdateFormularioHandler : ICommandHandler<UpdateFormularioCommand, Response<bool>>
 {
     private readonly IMapper _mapper;
     private readonly IRepository<FormularioModel> _repository;
@@ -22,7 +22,7 @@ public class UpdateFormularioHandler : ICommandHandler<UpdateFormularioCommand, 
         _repository = repository;
     }
 
-    public async Task<Response<long>> Handle(UpdateFormularioCommand request, CancellationToken cancellationToken)
+    public async Task<Response<bool>> Handle(UpdateFormularioCommand request, CancellationToken cancellationToken)
     {
         var formulario = await _repository.GetByIdAsync(request.FormularioDTO.Id);
 
@@ -30,9 +30,9 @@ public class UpdateFormularioHandler : ICommandHandler<UpdateFormularioCommand, 
 
         _mapper.Map(request.FormularioDTO, formulario);
 
-        _repository.Update(formulario);
+        _repository.Update(formulario, true);
         await _repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
-        return new Response<long>(formulario.Id);
+        return new Response<bool>(true);
     }
 }

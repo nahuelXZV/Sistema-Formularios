@@ -3,6 +3,7 @@ using AutoMapper;
 using Domain.DTOs.Forms;
 using Domain.Interfaces.Shared;
 using Domain.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Forms.Formulario.Queries;
 
@@ -24,9 +25,13 @@ public class GetFormularioByIdHandler : ICommandHandler<GetFormularioByIdQuery, 
 
     public async Task<Response<FormularioDTO>> Handle(GetFormularioByIdQuery request, CancellationToken cancellationToken)
     {
-        var formulario = await _repository.GetByIdAsync(request.Id);
+        var query = _repository.Query().Where(p => !p.Eliminado)
+                            .Where(p => p.Id == request.Id)
+                            .Include(p => p.ListaPreguntas);
 
-        if (formulario == null || formulario.Eliminado) throw new Exception("Formulario no encontrado.");
+        var formulario = await query.FirstOrDefaultAsync();
+
+        if (formulario == null) throw new Exception("Formulario no encontrado.");
 
         var dto = _mapper.Map<FormularioDTO>(formulario);
         return new Response<FormularioDTO>(dto);

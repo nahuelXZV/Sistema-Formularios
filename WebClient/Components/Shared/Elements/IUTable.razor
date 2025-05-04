@@ -1,0 +1,15 @@
+﻿<div class="overflow-auto border border-gray-200 rounded-lg shadow-sm">
+	<table class="min-w-full divide-y divide-gray-200 text-sm text-left text-gray-700">
+		<thead class="bg-gray-100 text-gray-700 uppercase text-xs font-semibold">
+			@HeaderContent
+		</thead>
+		<tbody class="divide-y divide-gray-200 bg-white">
+			@BodyContent
+		</tbody>
+	</table>
+</div>
+
+@code {
+	[Parameter] public RenderFragment? HeaderContent { get; set; }
+	[Parameter] public RenderFragment? BodyContent { get; set; }
+}
