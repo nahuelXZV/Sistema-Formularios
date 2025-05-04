@@ -4,12 +4,12 @@ using Domain.Interfaces.Shared;
 
 namespace Application.Features.Forms.Formulario.Commands;
 
-public class DeleteFormularioCommand : ICommand<Response<long>>
+public class DeleteFormularioCommand : ICommand<Response<bool>>
 {
     public required long Id { get; set; }
 }
 
-public class DeleteFormularioHandler : ICommandHandler<DeleteFormularioCommand, Response<long>>
+public class DeleteFormularioHandler : ICommandHandler<DeleteFormularioCommand, Response<bool>>
 {
     private readonly IRepository<FormularioModel> _repository;
 
@@ -18,7 +18,7 @@ public class DeleteFormularioHandler : ICommandHandler<DeleteFormularioCommand, 
         _repository = repository;
     }
 
-    public async Task<Response<long>> Handle(DeleteFormularioCommand request, CancellationToken cancellationToken)
+    public async Task<Response<bool>> Handle(DeleteFormularioCommand request, CancellationToken cancellationToken)
     {
         var formulario = await _repository.GetByIdAsync(request.Id);
 
@@ -29,6 +29,6 @@ public class DeleteFormularioHandler : ICommandHandler<DeleteFormularioCommand, 
         _repository.Update(formulario);
         await _repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
-        return new Response<long>(formulario.Id);
+        return new Response<bool>(true);
     }
 }

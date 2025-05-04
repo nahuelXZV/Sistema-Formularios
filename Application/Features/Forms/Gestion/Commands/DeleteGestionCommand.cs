@@ -4,12 +4,12 @@ using Domain.Interfaces.Shared;
 
 namespace Application.Features.Forms.Gestion.Commands;
 
-public class DeleteGestionCommand : ICommand<Response<long>>
+public class DeleteGestionCommand : ICommand<Response<bool>>
 {
     public required long Id { get; set; }
 }
 
-public class DeleteGestionHandler : ICommandHandler<DeleteGestionCommand, Response<long>>
+public class DeleteGestionHandler : ICommandHandler<DeleteGestionCommand, Response<bool>>
 {
     private readonly IRepository<GestionModel> _repository;
 
@@ -18,7 +18,7 @@ public class DeleteGestionHandler : ICommandHandler<DeleteGestionCommand, Respon
         _repository = repository;
     }
 
-    public async Task<Response<long>> Handle(DeleteGestionCommand request, CancellationToken cancellationToken)
+    public async Task<Response<bool>> Handle(DeleteGestionCommand request, CancellationToken cancellationToken)
     {
         var gestion = await _repository.GetByIdAsync(request.Id);
 
@@ -29,6 +29,6 @@ public class DeleteGestionHandler : ICommandHandler<DeleteGestionCommand, Respon
         _repository.Update(gestion);
         await _repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
-        return new Response<long>(gestion.Id);
+        return new Response<bool>(true);
     }
 }

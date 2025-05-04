@@ -1,0 +1,83 @@
+﻿@using WebClient.Components.Shared.Elements
+@inherits Components.MainBaseComponent;
+
+<div class="grid grid-cols-12 gap-2 p-2">
+	<IUCard CustomClass="col-span-12">
+		<Header>
+			<h3 class="text-lg font-semibold text-gray-900">Datos de la gestion</h3>
+		</Header>
+
+		<Body>
+			<div class="grid grid-cols-12 gap-2">
+				<div class="col-span-4">
+					<IUInputText Label="Nombre"
+								 Placeholder="Escriba el nombre de la gestion..."
+								 @bind-Value="Gestion.Nombre"
+								 Required=true />
+					@if (_validatorHelper.TieneErrores(nameof(Gestion.Nombre)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Gestion.Nombre))" />
+					}
+				</div>
+				<div class="col-span-4">
+					<IUInputDate Label="Fecha de inicio"
+								 @bind-Value="Gestion.FechaInicio"
+								 Required />
+					@if (_validatorHelper.TieneErrores(nameof(Gestion.FechaInicio)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Gestion.FechaInicio))" />
+					}
+				</div>
+				<div class="col-span-4">
+					<IUInputDate Label="Fecha de fin"
+								 @bind-Value="Gestion.FechaFin"
+								 Required />
+					@if (_validatorHelper.TieneErrores(nameof(Gestion.FechaFin)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Gestion.FechaFin))" />
+					}
+				</div>
+
+
+				@if (!Gestion.Terminado)
+				{
+					<div class="col-span-4 mt-4">
+						<IUInputCheckbox Label="Activo"
+										 @bind-Value="Gestion.Activo" />
+						@if (_validatorHelper.TieneErrores(nameof(Gestion.Activo)))
+						{
+							<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Gestion.Activo))" />
+						}
+					</div>
+				}
+
+				<div class="col-span-4 mt-4">
+					<IUInputCheckbox Label="Terminado"
+									 @bind-Value="Gestion.Terminado" />
+					@if (_validatorHelper.TieneErrores(nameof(Gestion.Terminado)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Gestion.Terminado))" />
+					}
+				</div>
+
+				@if (Gestion.Terminado)
+				{
+					<div class="col-span-6">
+					</div>
+				}
+				
+				<div class="col-span-6 mt-4">
+					<IUTextArea Label="Descripcion"
+								Placeholder="Escriba una pequeña descripcion..."
+								@bind-Value="Gestion.Descripcion"
+								Required=true />
+					@if (_validatorHelper.TieneErrores(nameof(Gestion.Descripcion)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Gestion.Descripcion))" />
+					}
+				</div>
+
+			</div>
+		</Body>
+	</IUCard>
+</div>

@@ -49,6 +49,6 @@ public class GestionController : MainController
     [HttpDelete("Delete/{idGestion}")]
     public async Task<IActionResult> Delete(long idGestion)
     {
-        return Ok(await Mediator.Send(new DeleteFormularioCommand { Id = idGestion }));
+        return Ok(await Mediator.Send(new DeleteGestionCommand { Id = idGestion }));
     }
 }
