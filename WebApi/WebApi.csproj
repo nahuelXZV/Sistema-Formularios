@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\Forms\" />
     <Folder Include="Helpers\" />
     <Folder Include="Logs\" />
   </ItemGroup>
