@@ -4,12 +4,12 @@ using Domain.Interfaces.Shared;
 
 namespace Application.Features.Configuration.Entidad.Commands;
 
-public class DeleteEntidadCommand : ICommand<Response<long>>
+public class DeleteEntidadCommand : ICommand<Response<bool>>
 {
     public required long Id { get; set; }
 }
 
-public class DeleteEntidadHandler : ICommandHandler<DeleteEntidadCommand, Response<long>>
+public class DeleteEntidadHandler : ICommandHandler<DeleteEntidadCommand, Response<bool>>
 {
     private readonly IRepository<EntidadModel> _repository;
 
@@ -18,7 +18,7 @@ public class DeleteEntidadHandler : ICommandHandler<DeleteEntidadCommand, Respon
         _repository = repository;
     }
 
-    public async Task<Response<long>> Handle(DeleteEntidadCommand request, CancellationToken cancellationToken)
+    public async Task<Response<bool>> Handle(DeleteEntidadCommand request, CancellationToken cancellationToken)
     {
         var entidad = await _repository.GetByIdAsync(request.Id);
 
@@ -29,6 +29,6 @@ public class DeleteEntidadHandler : ICommandHandler<DeleteEntidadCommand, Respon
         _repository.Update(entidad);
         await _repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
-        return new Response<long>(entidad.Id);
+        return new Response<bool>(true);
     }
 }

@@ -6,12 +6,12 @@ using Domain.DTOs.Configuration;
 
 namespace Application.Features.Configuration.Entidad.Commands;
 
-public class UpdateEntidadCommand : ICommand<Response<long>>
+public class UpdateEntidadCommand : ICommand<Response<bool>>
 {
     public required EntidadDTO EntidadDTO { get; set; }
 }
 
-public class UpdateEntidadHandler : ICommandHandler<UpdateEntidadCommand, Response<long>>
+public class UpdateEntidadHandler : ICommandHandler<UpdateEntidadCommand, Response<bool>>
 {
     private readonly IMapper _mapper;
     private readonly IRepository<EntidadModel> _repository;
@@ -22,7 +22,7 @@ public class UpdateEntidadHandler : ICommandHandler<UpdateEntidadCommand, Respon
         _repository = repository;
     }
 
-    public async Task<Response<long>> Handle(UpdateEntidadCommand request, CancellationToken cancellationToken)
+    public async Task<Response<bool>> Handle(UpdateEntidadCommand request, CancellationToken cancellationToken)
     {
         var entidad = await _repository.GetByIdAsync(request.EntidadDTO.Id);
 
@@ -33,6 +33,6 @@ public class UpdateEntidadHandler : ICommandHandler<UpdateEntidadCommand, Respon
         _repository.Update(entidad);
         await _repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
-        return new Response<long>(entidad.Id);
+        return new Response<bool>(true);
     }
 }

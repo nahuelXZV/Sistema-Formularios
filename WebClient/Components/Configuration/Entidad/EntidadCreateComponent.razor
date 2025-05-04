@@ -1,0 +1,69 @@
+﻿@using WebClient.Components.Shared.Elements
+@inherits Components.MainBaseComponent;
+
+<div class="grid grid-cols-12 gap-2 p-2">
+	<IUCard CustomClass="col-span-12">
+		<Header>
+			<h3 class="text-lg font-semibold text-gray-900">Datos de la sucursal</h3>
+		</Header>
+
+		<Body>
+			<div class="grid grid-cols-12 gap-2">
+				<div class="col-span-6">
+					<IUInputText Label="Nombre"
+								 Placeholder="Escriba el nombre de la sucursal..."
+								 @bind-Value="Entidad.Nombre"
+								 Required=true />
+					@if (_validatorHelper.TieneErrores(nameof(Entidad.Nombre)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Entidad.Nombre))" />
+					}
+				</div>
+
+				<div class="col-span-6">
+					<IUInputText Label="Direccion"
+								 Placeholder="Escriba la direccion..."
+								 @bind-Value="Entidad.Direccion"
+								 Required=true />
+					@if (_validatorHelper.TieneErrores(nameof(Entidad.Direccion)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Entidad.Direccion))" />
+					}
+				</div>
+
+
+				<div class="col-span-4">
+					<IUInputText Label="Telefono"
+								 Placeholder="Escriba el telefono..."
+								 @bind-Value="Entidad.Telefono" />
+					@if (_validatorHelper.TieneErrores(nameof(Entidad.Telefono)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Entidad.Telefono))" />
+					}
+				</div>
+				<div class="col-span-4">
+					<IUInputText Label="Correo"
+								 Placeholder="Escriba el correo..."
+								 @bind-Value="Entidad.Correo" />
+					@if (_validatorHelper.TieneErrores(nameof(Entidad.Correo)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Entidad.Correo))" />
+					}
+				</div>
+
+				@*TODO: maps *@
+
+				<div class="col-span-6 mt-4">
+					<IUTextArea Label="Descripcion"
+								Placeholder="Escriba una pequeña descripcion..."
+								@bind-Value="Entidad.Descripcion" />
+					@if (_validatorHelper.TieneErrores(nameof(Entidad.Descripcion)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Entidad.Descripcion))" />
+					}
+				</div>
+
+			</div>
+		</Body>
+	</IUCard>
+</div>

@@ -1,0 +1,52 @@
+﻿@using WebClient.Common
+@using WebClient.Models
+@using WebClient.Models.Configuration
+@model EntidadViewModel
+
+@{
+	ViewData["Title"] = "Sucursal";
+	ViewData["Module"] = "Configuracion";
+	ViewData["Action"] = "Listado";
+	ViewData["Url"] = Url.Action("Listado", "Entidad");
+
+	Model.ListaItemsMenu = new List<ItemMenu>
+	{
+		new ItemMenu { Id = MenuItemId.Editar, Text = "Editar", IconCss = "fa fa-pencil", Url = Url.Action("Crear", "Entidad"), ActionType = MenuItemActionType.POST },
+		new ItemMenu { Id = MenuItemId.Eliminar, Text = "Eliminar", IconCss = "fa fa-trash", Url = Url.Action("Eliminar", "Entidad"), ActionType = MenuItemActionType.POST, Confirm = true, ConfirmMessage = "Esta seguro de eliminar esta sucursal?" },
+	};
+}
+
+@section ContentHeader {
+	<div class="inline-flex rounded-md shadow-xs" role="group">
+		<form id="FormCrear" action="/Entidad/Crear" method="post">@Html.AntiForgeryToken()</form>
+		<button form="FormCrear" type="submit" class="inline-flex items-center px-3 py-1 mr-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700">
+			<i class="fa fa-plus mr-1"></i>
+			Crear
+		</button>
+	</div>
+}
+
+<div class="rounded-2xl border border-gray-200 bg-white px-3 py-3">
+	<div id="table-wrapper" class=""></div>
+</div>
+
+@section Scripts {
+	<script>
+		new gridjs.Grid({
+			columns: ['Id', 'Nombre', "Descripcion", "Telefono", "Correo",
+				{
+					name: 'Acciones',
+					formatter: (cell, row) => gridjs.html(this.menuTableHandler(row._cells[0].data))
+				}
+			],
+			server: {
+			  url: urlWeb + "Entidad/GetAll",
+			  then: data => data.data.map(data => [
+				data.id, data.nombre, data.descripcion, data.telefono, data.correo
+			  ]),
+			  total: data => data.total
+			},
+			...this.optionsTable
+		}).render(document.getElementById("table-wrapper"));
+	</script>
+}

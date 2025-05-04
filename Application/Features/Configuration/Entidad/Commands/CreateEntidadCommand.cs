@@ -8,7 +8,7 @@ namespace Application.Features.Configuration.Entidad.Commands;
 
 public class CreateEntidadCommand : ICommand<Response<long>>
 {
-    public required EntidadDTO EntidadDTO { get; set; }
+    public EntidadDTO EntidadDTO { get; set; }
 }
 
 public class CreateEntidadHandler : ICommandHandler<CreateEntidadCommand, Response<long>>
