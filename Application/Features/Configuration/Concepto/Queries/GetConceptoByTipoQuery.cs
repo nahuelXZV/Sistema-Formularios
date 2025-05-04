@@ -12,7 +12,7 @@ public class GetConceptoByTipoQuery : ICommand<Response<List<ConceptoDTO>>>
     public required int Tipo { get; set; }
 }
 
-public class GetConceptoByTipoHandler : ICommandHandler<GetConceptoByTipoQuery, Response<List<ConceptoDTO>>>>
+public class GetConceptoByTipoHandler : ICommandHandler<GetConceptoByTipoQuery, Response<List<ConceptoDTO>>>
 {
     private readonly IRepository<ConceptoModel> _repository;
     private readonly IMapper _mapper;
