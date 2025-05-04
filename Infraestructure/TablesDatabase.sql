@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [template]    Script Date: 27/4/2025 17:49:58 ******/
+/****** Object:  Database [template]    Script Date: 4/5/2025 19:15:49 ******/
 CREATE DATABASE [template]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -80,23 +80,26 @@ EXEC sys.sp_db_vardecimal_storage_format N'template', N'ON'
 GO
 ALTER DATABASE [template] SET QUERY_STORE = ON
 GO
-ALTER DATABASE [template] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_STORAGE_SIZE_MB = 1000, QUERY_CAPTURE_MODE = AUTO, SIZE_BASED_CLEANUP_MODE = AUTO, MAX_PLANS_PER_QUERY = 200)
+ALTER DATABASE [template] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_STORAGE_SIZE_MB = 1000, QUERY_CAPTURE_MODE = AUTO, SIZE_BASED_CLEANUP_MODE = AUTO, MAX_PLANS_PER_QUERY = 200, WAIT_STATS_CAPTURE_MODE = ON)
 GO
 USE [template]
 GO
-/****** Object:  Schema [Configuracion]    Script Date: 27/4/2025 17:49:59 ******/
+/****** Object:  Schema [Configuracion]    Script Date: 4/5/2025 19:15:49 ******/
 CREATE SCHEMA [Configuracion]
 GO
-/****** Object:  Schema [Formulario]    Script Date: 27/4/2025 17:49:59 ******/
+/****** Object:  Schema [Configuration]    Script Date: 4/5/2025 19:15:49 ******/
+CREATE SCHEMA [Configuration]
+GO
+/****** Object:  Schema [Formulario]    Script Date: 4/5/2025 19:15:49 ******/
 CREATE SCHEMA [Formulario]
 GO
-/****** Object:  Schema [General]    Script Date: 27/4/2025 17:49:59 ******/
+/****** Object:  Schema [General]    Script Date: 4/5/2025 19:15:49 ******/
 CREATE SCHEMA [General]
 GO
-/****** Object:  Schema [Seguridad]    Script Date: 27/4/2025 17:49:59 ******/
+/****** Object:  Schema [Seguridad]    Script Date: 4/5/2025 19:15:49 ******/
 CREATE SCHEMA [Seguridad]
 GO
-/****** Object:  Table [Configuracion].[Concepto]    Script Date: 27/4/2025 17:49:59 ******/
+/****** Object:  Table [Configuracion].[Concepto]    Script Date: 4/5/2025 19:15:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -116,7 +119,7 @@ CREATE TABLE [Configuracion].[Concepto](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Configuracion].[Entidad]    Script Date: 27/4/2025 17:49:59 ******/
+/****** Object:  Table [Configuracion].[Entidad]    Script Date: 4/5/2025 19:15:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -124,7 +127,7 @@ GO
 CREATE TABLE [Configuracion].[Entidad](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[Nombre] [varchar](250) NOT NULL,
-	[Descripcion] [varchar](250) NULL,
+	[Descripcion] [varchar](250) NOT NULL,
 	[Direccion] [varchar](250) NULL,
 	[Latitud] [varchar](250) NULL,
 	[Longitud] [varchar](250) NULL,
@@ -137,7 +140,7 @@ CREATE TABLE [Configuracion].[Entidad](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Formulario].[Formulario]    Script Date: 27/4/2025 17:49:59 ******/
+/****** Object:  Table [Formulario].[Formulario]    Script Date: 4/5/2025 19:15:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -156,7 +159,7 @@ CREATE TABLE [Formulario].[Formulario](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Formulario].[Gestion]    Script Date: 27/4/2025 17:49:59 ******/
+/****** Object:  Table [Formulario].[Gestion]    Script Date: 4/5/2025 19:15:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -176,7 +179,7 @@ CREATE TABLE [Formulario].[Gestion](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Formulario].[Grupo]    Script Date: 27/4/2025 17:49:59 ******/
+/****** Object:  Table [Formulario].[Grupo]    Script Date: 4/5/2025 19:15:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -194,7 +197,7 @@ CREATE TABLE [Formulario].[Grupo](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Formulario].[GrupoFormulario]    Script Date: 27/4/2025 17:49:59 ******/
+/****** Object:  Table [Formulario].[GrupoFormulario]    Script Date: 4/5/2025 19:15:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -210,7 +213,7 @@ CREATE TABLE [Formulario].[GrupoFormulario](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Formulario].[Pregunta]    Script Date: 27/4/2025 17:49:59 ******/
+/****** Object:  Table [Formulario].[Pregunta]    Script Date: 4/5/2025 19:15:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -224,16 +227,16 @@ CREATE TABLE [Formulario].[Pregunta](
 	[Activo] [bit] NOT NULL,
 	[Requerido] [bit] NOT NULL,
 	[Opciones] [varchar](max) NULL,
-	[TipoId] [bigint] NOT NULL,
 	[FormularioId] [bigint] NOT NULL,
 	[Eliminado] [bit] NOT NULL,
+	[TipoId] [smallint] NOT NULL,
  CONSTRAINT [PK_Pregunta] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [Formulario].[RespuestaFormulario]    Script Date: 27/4/2025 17:49:59 ******/
+/****** Object:  Table [Formulario].[RespuestaFormulario]    Script Date: 4/5/2025 19:15:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -253,7 +256,7 @@ CREATE TABLE [Formulario].[RespuestaFormulario](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Formulario].[RespuestaGrupo]    Script Date: 27/4/2025 17:49:59 ******/
+/****** Object:  Table [Formulario].[RespuestaGrupo]    Script Date: 4/5/2025 19:15:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -272,7 +275,7 @@ CREATE TABLE [Formulario].[RespuestaGrupo](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Formulario].[RespuestaPregunta]    Script Date: 27/4/2025 17:49:59 ******/
+/****** Object:  Table [Formulario].[RespuestaPregunta]    Script Date: 4/5/2025 19:15:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -289,7 +292,7 @@ CREATE TABLE [Formulario].[RespuestaPregunta](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Seguridad].[Acceso]    Script Date: 27/4/2025 17:49:59 ******/
+/****** Object:  Table [Seguridad].[Acceso]    Script Date: 4/5/2025 19:15:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -311,7 +314,7 @@ CREATE TABLE [Seguridad].[Acceso](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Seguridad].[Modulo]    Script Date: 27/4/2025 17:49:59 ******/
+/****** Object:  Table [Seguridad].[Modulo]    Script Date: 4/5/2025 19:15:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -328,7 +331,7 @@ CREATE TABLE [Seguridad].[Modulo](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Seguridad].[Perfil]    Script Date: 27/4/2025 17:49:59 ******/
+/****** Object:  Table [Seguridad].[Perfil]    Script Date: 4/5/2025 19:15:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -344,7 +347,7 @@ CREATE TABLE [Seguridad].[Perfil](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Seguridad].[PerfilAcceso]    Script Date: 27/4/2025 17:49:59 ******/
+/****** Object:  Table [Seguridad].[PerfilAcceso]    Script Date: 4/5/2025 19:15:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -360,7 +363,7 @@ CREATE TABLE [Seguridad].[PerfilAcceso](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Seguridad].[Usuario]    Script Date: 27/4/2025 17:49:59 ******/
+/****** Object:  Table [Seguridad].[Usuario]    Script Date: 4/5/2025 19:15:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -380,6 +383,158 @@ CREATE TABLE [Seguridad].[Usuario](
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [Configuracion].[Concepto] ON 
+GO
+INSERT [Configuracion].[Concepto] ([Id], [Tipo], [Clave], [Nombre], [Valor], [Descripcion], [Secuencia], [Editable]) VALUES (1, 1, N'1', N'Modulo Seguridad', N'Seguridad', N'Modulo seguridad', 1, 1)
+GO
+INSERT [Configuracion].[Concepto] ([Id], [Tipo], [Clave], [Nombre], [Valor], [Descripcion], [Secuencia], [Editable]) VALUES (2, 1, N'2', N'Modulo General', N'General', N'Modulo general', 2, 1)
+GO
+SET IDENTITY_INSERT [Configuracion].[Concepto] OFF
+GO
+SET IDENTITY_INSERT [Configuracion].[Entidad] ON 
+GO
+INSERT [Configuracion].[Entidad] ([Id], [Nombre], [Descripcion], [Direccion], [Latitud], [Longitud], [Telefono], [Correo], [Eliminado]) VALUES (1, N'string asd ', N'string asda sdasd', N'string', N'string', N'string', N'string asd ', N'string', 0)
+GO
+INSERT [Configuracion].[Entidad] ([Id], [Nombre], [Descripcion], [Direccion], [Latitud], [Longitud], [Telefono], [Correo], [Eliminado]) VALUES (3, N'asdasdasd', N'asdasdasda sdas dasd', N'', N'', N'', N'a sdasd', N'', 1)
+GO
+SET IDENTITY_INSERT [Configuracion].[Entidad] OFF
+GO
+SET IDENTITY_INSERT [Formulario].[Formulario] ON 
+GO
+INSERT [Formulario].[Formulario] ([Id], [Nombre], [Descripcion], [Ponderacion], [Orden], [Activo], [Eliminado]) VALUES (1, N'asdasd', N'asdasd', 1, 1, 1, 0)
+GO
+INSERT [Formulario].[Formulario] ([Id], [Nombre], [Descripcion], [Ponderacion], [Orden], [Activo], [Eliminado]) VALUES (2, N'asdasdasd a', N'asdasdasdasd a', 2, 2, 0, 0)
+GO
+INSERT [Formulario].[Formulario] ([Id], [Nombre], [Descripcion], [Ponderacion], [Orden], [Activo], [Eliminado]) VALUES (3, N'asdasd', N'fsdfsdfsdf', 1, 3, 0, 1)
+GO
+SET IDENTITY_INSERT [Formulario].[Formulario] OFF
+GO
+SET IDENTITY_INSERT [Formulario].[Gestion] ON 
+GO
+INSERT [Formulario].[Gestion] ([Id], [Nombre], [Descripcion], [FechaInicio], [FechaFin], [Activo], [Terminado], [Eliminado]) VALUES (1, N'1-2025', N'asdasda sdas ds das d', CAST(N'2001-05-20T00:00:00.000' AS DateTime), CAST(N'2001-09-01T00:00:00.000' AS DateTime), 1, 0, 0)
+GO
+INSERT [Formulario].[Gestion] ([Id], [Nombre], [Descripcion], [FechaInicio], [FechaFin], [Activo], [Terminado], [Eliminado]) VALUES (2, N'asdasd', N'asdasd asd asd', CAST(N'2001-01-05T00:00:00.000' AS DateTime), CAST(N'2005-02-01T00:00:00.000' AS DateTime), 0, 1, 1)
+GO
+SET IDENTITY_INSERT [Formulario].[Gestion] OFF
+GO
+SET IDENTITY_INSERT [Formulario].[Pregunta] ON 
+GO
+INSERT [Formulario].[Pregunta] ([Id], [Enunciado], [Descripcion], [Orden], [Ponderacion], [Activo], [Requerido], [Opciones], [FormularioId], [Eliminado], [TipoId]) VALUES (1, N'sdfsfd', N'sdfsdf', 1, 1, 1, 1, N'["A","B","C"]', 1, 0, 2)
+GO
+INSERT [Formulario].[Pregunta] ([Id], [Enunciado], [Descripcion], [Orden], [Ponderacion], [Activo], [Requerido], [Opciones], [FormularioId], [Eliminado], [TipoId]) VALUES (2, N'asdasdasd', N'asdasdasd', 2, 2, 0, 1, N'["A"]', 2, 0, 2)
+GO
+INSERT [Formulario].[Pregunta] ([Id], [Enunciado], [Descripcion], [Orden], [Ponderacion], [Activo], [Requerido], [Opciones], [FormularioId], [Eliminado], [TipoId]) VALUES (3, N'sdasdas', N'dasdasda', 1, 1, 1, 0, N'[]', 3, 0, 8)
+GO
+INSERT [Formulario].[Pregunta] ([Id], [Enunciado], [Descripcion], [Orden], [Ponderacion], [Activo], [Requerido], [Opciones], [FormularioId], [Eliminado], [TipoId]) VALUES (4, N'asdasd', N'asdasd', 1, 1, 0, 1, N'[]', 1, 0, 2)
+GO
+SET IDENTITY_INSERT [Formulario].[Pregunta] OFF
+GO
+SET IDENTITY_INSERT [Seguridad].[Acceso] ON 
+GO
+INSERT [Seguridad].[Acceso] ([Id], [Nombre], [Secuencia], [Controlador], [Vista], [Url], [Icono], [Descripcion], [ModuloId], [Eliminado]) VALUES (2, N'Home', 1, N'Home', N'Index', N'/Home/Index', N'fa fa-genderless', N'a', 4, 1)
+GO
+INSERT [Seguridad].[Acceso] ([Id], [Nombre], [Secuencia], [Controlador], [Vista], [Url], [Icono], [Descripcion], [ModuloId], [Eliminado]) VALUES (3, N'Usuarios', 1, N'Usuario', N'Listado', N'/Usuario/Listado', N'fa fa-genderless', N'a', 3, 0)
+GO
+INSERT [Seguridad].[Acceso] ([Id], [Nombre], [Secuencia], [Controlador], [Vista], [Url], [Icono], [Descripcion], [ModuloId], [Eliminado]) VALUES (4, N'Perfiles', 2, N'Perfil', N'Listado', N'/Perfil/Listado', N'fa fa-genderless', N'a', 3, 0)
+GO
+INSERT [Seguridad].[Acceso] ([Id], [Nombre], [Secuencia], [Controlador], [Vista], [Url], [Icono], [Descripcion], [ModuloId], [Eliminado]) VALUES (5, N'System Design', 3, N'Home', N'SystemDesign', N'/Home/SystemDesign', N'fa fa-genderless', N'a', 5, 0)
+GO
+INSERT [Seguridad].[Acceso] ([Id], [Nombre], [Secuencia], [Controlador], [Vista], [Url], [Icono], [Descripcion], [ModuloId], [Eliminado]) VALUES (6, N'Gestion', 1, N'Gestion', N'Listado', N'/Gestion/Listado', N'fa fa-genderless', N'a', 6, 0)
+GO
+INSERT [Seguridad].[Acceso] ([Id], [Nombre], [Secuencia], [Controlador], [Vista], [Url], [Icono], [Descripcion], [ModuloId], [Eliminado]) VALUES (7, N'Sucursal', 2, N'Entidad', N'Listado', N'/Entidad/Listado', N'fa fa-genderless', N'a', 7, 0)
+GO
+INSERT [Seguridad].[Acceso] ([Id], [Nombre], [Secuencia], [Controlador], [Vista], [Url], [Icono], [Descripcion], [ModuloId], [Eliminado]) VALUES (8, N'Formularios', 3, N'Formulario', N'Listado', N'/Formulario/Listado', N'fa fa-genderless', N'a', 6, 0)
+GO
+SET IDENTITY_INSERT [Seguridad].[Acceso] OFF
+GO
+SET IDENTITY_INSERT [Seguridad].[Modulo] ON 
+GO
+INSERT [Seguridad].[Modulo] ([Id], [Nombre], [Icono], [Secuencia], [Eliminado]) VALUES (3, N'Modulo Seguridad', N'fa fa-shield', 3, 0)
+GO
+INSERT [Seguridad].[Modulo] ([Id], [Nombre], [Icono], [Secuencia], [Eliminado]) VALUES (4, N'Modulo General', N'fa fa-home', 2, 0)
+GO
+INSERT [Seguridad].[Modulo] ([Id], [Nombre], [Icono], [Secuencia], [Eliminado]) VALUES (5, N'Modulo Administrativo', N'fa fa-cog', 1, 0)
+GO
+INSERT [Seguridad].[Modulo] ([Id], [Nombre], [Icono], [Secuencia], [Eliminado]) VALUES (6, N'Modulo Formularios', N'fa fa-file-text', 4, 0)
+GO
+INSERT [Seguridad].[Modulo] ([Id], [Nombre], [Icono], [Secuencia], [Eliminado]) VALUES (7, N'Modulo Configuracion', N'fa fa-cog', 5, 0)
+GO
+SET IDENTITY_INSERT [Seguridad].[Modulo] OFF
+GO
+SET IDENTITY_INSERT [Seguridad].[Perfil] ON 
+GO
+INSERT [Seguridad].[Perfil] ([Id], [Nombre], [Descripcion], [Eliminado]) VALUES (1, N'Administrador', N'Perfil administrador', 0)
+GO
+INSERT [Seguridad].[Perfil] ([Id], [Nombre], [Descripcion], [Eliminado]) VALUES (2, N'string', N'string', 0)
+GO
+INSERT [Seguridad].[Perfil] ([Id], [Nombre], [Descripcion], [Eliminado]) VALUES (3, N'tes', N'test', 1)
+GO
+INSERT [Seguridad].[Perfil] ([Id], [Nombre], [Descripcion], [Eliminado]) VALUES (4, N'tesasd asd asd a sd ', N'testasd asd ', 0)
+GO
+INSERT [Seguridad].[Perfil] ([Id], [Nombre], [Descripcion], [Eliminado]) VALUES (5, N'tes', N'te', 1)
+GO
+INSERT [Seguridad].[Perfil] ([Id], [Nombre], [Descripcion], [Eliminado]) VALUES (7, N'te', N'te', 1)
+GO
+INSERT [Seguridad].[Perfil] ([Id], [Nombre], [Descripcion], [Eliminado]) VALUES (8, N'Perfil modificado 2', N'asdmu cho texto ', 0)
+GO
+INSERT [Seguridad].[Perfil] ([Id], [Nombre], [Descripcion], [Eliminado]) VALUES (9, N'test', N'test', 1)
+GO
+INSERT [Seguridad].[Perfil] ([Id], [Nombre], [Descripcion], [Eliminado]) VALUES (10, N'string', N'string', 0)
+GO
+SET IDENTITY_INSERT [Seguridad].[Perfil] OFF
+GO
+SET IDENTITY_INSERT [Seguridad].[PerfilAcceso] ON 
+GO
+INSERT [Seguridad].[PerfilAcceso] ([Id], [PerfilId], [AccesoId], [Eliminado]) VALUES (12, 8, 3, 0)
+GO
+INSERT [Seguridad].[PerfilAcceso] ([Id], [PerfilId], [AccesoId], [Eliminado]) VALUES (15, 3, 3, 0)
+GO
+INSERT [Seguridad].[PerfilAcceso] ([Id], [PerfilId], [AccesoId], [Eliminado]) VALUES (17, 2, 4, 0)
+GO
+INSERT [Seguridad].[PerfilAcceso] ([Id], [PerfilId], [AccesoId], [Eliminado]) VALUES (18, 2, 3, 0)
+GO
+INSERT [Seguridad].[PerfilAcceso] ([Id], [PerfilId], [AccesoId], [Eliminado]) VALUES (19, 9, 4, 0)
+GO
+INSERT [Seguridad].[PerfilAcceso] ([Id], [PerfilId], [AccesoId], [Eliminado]) VALUES (20, 9, 3, 0)
+GO
+INSERT [Seguridad].[PerfilAcceso] ([Id], [PerfilId], [AccesoId], [Eliminado]) VALUES (26, 4, 3, 0)
+GO
+INSERT [Seguridad].[PerfilAcceso] ([Id], [PerfilId], [AccesoId], [Eliminado]) VALUES (27, 4, 4, 0)
+GO
+INSERT [Seguridad].[PerfilAcceso] ([Id], [PerfilId], [AccesoId], [Eliminado]) VALUES (37, 1, 3, 0)
+GO
+INSERT [Seguridad].[PerfilAcceso] ([Id], [PerfilId], [AccesoId], [Eliminado]) VALUES (38, 1, 4, 0)
+GO
+INSERT [Seguridad].[PerfilAcceso] ([Id], [PerfilId], [AccesoId], [Eliminado]) VALUES (39, 1, 5, 0)
+GO
+INSERT [Seguridad].[PerfilAcceso] ([Id], [PerfilId], [AccesoId], [Eliminado]) VALUES (40, 1, 6, 0)
+GO
+INSERT [Seguridad].[PerfilAcceso] ([Id], [PerfilId], [AccesoId], [Eliminado]) VALUES (41, 1, 7, 0)
+GO
+INSERT [Seguridad].[PerfilAcceso] ([Id], [PerfilId], [AccesoId], [Eliminado]) VALUES (42, 1, 8, 0)
+GO
+SET IDENTITY_INSERT [Seguridad].[PerfilAcceso] OFF
+GO
+SET IDENTITY_INSERT [Seguridad].[Usuario] ON 
+GO
+INSERT [Seguridad].[Usuario] ([Id], [Nombre], [Apellido], [Username], [Email], [Password], [FechaCreacion], [PerfilId], [Eliminado]) VALUES (1, N'Nahuel', N'Zalazar', N'string', N'string@gmail.com', N'AQAAAAIAAYagAAAAEO1tb0OZlpC+y5aD+uY9Mu7SGl82qW1VRQerv12Fufqf9Z9rQCHSvMK71q8Yn/RIlA==', CAST(N'2025-04-01T21:35:19.887' AS DateTime), 1, 0)
+GO
+INSERT [Seguridad].[Usuario] ([Id], [Nombre], [Apellido], [Username], [Email], [Password], [FechaCreacion], [PerfilId], [Eliminado]) VALUES (2, N'string', N'string', N'string1', N'string1@gmail.com', N'AQAAAAIAAYagAAAAEOFeu4mzD09abOvcbdentHsKJ0tVYku+xJNmH+zusn83w9MlMbs1QyUim31lr8/+WA==', CAST(N'2025-04-02T21:00:43.623' AS DateTime), 1, 1)
+GO
+INSERT [Seguridad].[Usuario] ([Id], [Nombre], [Apellido], [Username], [Email], [Password], [FechaCreacion], [PerfilId], [Eliminado]) VALUES (3, N'test 2', N'test 2', N'test 2', N'test@live.com', N'12345678', CAST(N'2025-04-19T16:43:35.830' AS DateTime), 4, 0)
+GO
+INSERT [Seguridad].[Usuario] ([Id], [Nombre], [Apellido], [Username], [Email], [Password], [FechaCreacion], [PerfilId], [Eliminado]) VALUES (4, N'test 2', N'test', N'test', N'test@gmail.com', N'AQAAAAIAAYagAAAAEC/t8sVR+ClRAiffdfHsWS/QCticxxFLytWfQXnYDwNU0rJbJyVgUrjuLHUkLvBZTA==', CAST(N'2025-04-19T16:55:56.587' AS DateTime), 8, 0)
+GO
+INSERT [Seguridad].[Usuario] ([Id], [Nombre], [Apellido], [Username], [Email], [Password], [FechaCreacion], [PerfilId], [Eliminado]) VALUES (5, N'testefa', N'asd asd', N'asd asd as', N'asdasda@gmail.com', N'AQAAAAIAAYagAAAAEDdErs+HuPInTHEQgNkkwk6XHauqBJJqIJYG8q3YLLdLkpgvZc+gNoCiauBawR6rrg==', CAST(N'2025-04-19T16:57:25.180' AS DateTime), 2, 0)
+GO
+INSERT [Seguridad].[Usuario] ([Id], [Nombre], [Apellido], [Username], [Email], [Password], [FechaCreacion], [PerfilId], [Eliminado]) VALUES (6, N'stringasd', N'stringasd', N'stringasd', N'string@test.com', N'AQAAAAIAAYagAAAAELNpVZ7KoLrdk36nefQuYL6u4sMh6aOUJFq5k1/ePDoHrIlfAdqr4uYND4aBKq+keA==', CAST(N'2025-04-20T17:36:28.457' AS DateTime), 10, 0)
+GO
+INSERT [Seguridad].[Usuario] ([Id], [Nombre], [Apellido], [Username], [Email], [Password], [FechaCreacion], [PerfilId], [Eliminado]) VALUES (7, N'sfsdfsdf', N'sdfsdf', N'sdfsdfs', N'sdfsdf@gas.com', N'AQAAAAIAAYagAAAAEI0HG3avIxpXqrzpr38Eexqfkb/1HAfiwBbLPzGNZlutrqKuqg1KArY01Qbu66IDPQ==', CAST(N'2025-04-20T18:59:29.807' AS DateTime), 1, 0)
+GO
+INSERT [Seguridad].[Usuario] ([Id], [Nombre], [Apellido], [Username], [Email], [Password], [FechaCreacion], [PerfilId], [Eliminado]) VALUES (8, N'reasdasd asd as1', N'asdasd', N'asdasdas', N'asdasda@adasda.com', N'', CAST(N'2025-04-20T19:43:07.967' AS DateTime), 4, 0)
+GO
+SET IDENTITY_INSERT [Seguridad].[Usuario] OFF
 GO
 ALTER TABLE [Configuracion].[Concepto] ADD  CONSTRAINT [DF_Concepto_Editable]  DEFAULT ((0)) FOR [Editable]
 GO
@@ -434,11 +589,6 @@ ALTER TABLE [Formulario].[GrupoFormulario]  WITH CHECK ADD  CONSTRAINT [FK_Grupo
 REFERENCES [Formulario].[Grupo] ([Id])
 GO
 ALTER TABLE [Formulario].[GrupoFormulario] CHECK CONSTRAINT [FK_GrupoFormulario_Grupo]
-GO
-ALTER TABLE [Formulario].[Pregunta]  WITH CHECK ADD  CONSTRAINT [FK_Pregunta_Concepto] FOREIGN KEY([TipoId])
-REFERENCES [Configuracion].[Concepto] ([Id])
-GO
-ALTER TABLE [Formulario].[Pregunta] CHECK CONSTRAINT [FK_Pregunta_Concepto]
 GO
 ALTER TABLE [Formulario].[RespuestaFormulario]  WITH CHECK ADD  CONSTRAINT [FK_RespuestaFormulario_Formulario] FOREIGN KEY([FormularioId])
 REFERENCES [Formulario].[Formulario] ([Id])
