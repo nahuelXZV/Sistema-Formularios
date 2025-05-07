@@ -4,7 +4,6 @@
 		   id="@Id"
 		   class="@InputClass"
 		   placeholder="@Placeholder"
-		   value="@FormattedValue"
 		   @onchange="OnChange"
 		   required="@Required"
 		   readonly="@Readonly" />
@@ -20,8 +19,6 @@
 
 	[Parameter] public DateTime? Value { get; set; }
 	[Parameter] public EventCallback<DateTime?> ValueChanged { get; set; }
-
-	private string FormattedValue => Value?.ToString("yyyy-MM-dd");
 
 	private async Task OnChange(ChangeEventArgs e)
 	{
