@@ -8,8 +8,8 @@
 		</Header>
 
 		<Body>
-			<div class="grid grid-cols-12 gap-2">
-				<div class="col-span-4">
+			<div class="grid grid-cols-12 md:grid-cols-12 gap-2">
+				<div class="md:col-span-4 col-span-12">
 					<IUInputText Label="Nombre"
 								 Placeholder="Escriba el nombre de la gestion..."
 								 @bind-Value="Gestion.Nombre"
@@ -19,7 +19,7 @@
 						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Gestion.Nombre))" />
 					}
 				</div>
-				<div class="col-span-4">
+				<div class="col-span-6 md:col-span-4">
 					<IUInputDate Label="Fecha de inicio"
 								 @bind-Value="Gestion.FechaInicio"
 								 Required />
@@ -28,7 +28,7 @@
 						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Gestion.FechaInicio))" />
 					}
 				</div>
-				<div class="col-span-4">
+				<div class="col-span-6 md:col-span-4">
 					<IUInputDate Label="Fecha de fin"
 								 @bind-Value="Gestion.FechaFin"
 								 Required />
@@ -38,10 +38,12 @@
 					}
 				</div>
 
+				<div class="col-span-6 hidden md:col-span-4 md:block">
+				</div>
 
 				@if (!Gestion.Terminado)
 				{
-					<div class="col-span-4 mt-4">
+					<div class="col-span-4 md:col-span-4 mt-4">
 						<IUInputCheckbox Label="Activo"
 										 @bind-Value="Gestion.Activo" />
 						@if (_validatorHelper.TieneErrores(nameof(Gestion.Activo)))
@@ -51,7 +53,7 @@
 					</div>
 				}
 
-				<div class="col-span-4 mt-4">
+				<div class="col-span-4 md:col-span-4 mt-4">
 					<IUInputCheckbox Label="Terminado"
 									 @bind-Value="Gestion.Terminado" />
 					@if (_validatorHelper.TieneErrores(nameof(Gestion.Terminado)))
@@ -62,11 +64,11 @@
 
 				@if (Gestion.Terminado)
 				{
-					<div class="col-span-6">
+					<div class="col-span-6 md:col-span-6">
 					</div>
 				}
-				
-				<div class="col-span-6 mt-4">
+
+				<div class="col-span-12 md:col-span-6 mt-4">
 					<IUTextArea Label="Descripcion"
 								Placeholder="Escriba una pequeña descripcion..."
 								@bind-Value="Gestion.Descripcion"

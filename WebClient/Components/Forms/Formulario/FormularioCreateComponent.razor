@@ -4,7 +4,7 @@
 @inherits Components.MainBaseComponent;
 
 <div class="grid grid-cols-12 gap-2 p-2">
-	<IUCard CustomClass="col-span-6">
+	<IUCard CustomClass="col-span-12 md:col-span-6">
 		<Header>
 			<h3 class="text-lg font-semibold text-gray-900">Datos del formulario</h3>
 		</Header>
@@ -22,7 +22,7 @@
 					}
 				</div>
 
-				<div class="col-span-3">
+				<div class="col-span-6 md:col-span-3">
 					<IUInputNumeric Label="Ponderacion"
 									Placeholder="Escriba la ponderacion del formulario..."
 									TValue="double"
@@ -33,7 +33,7 @@
 						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Formulario.Ponderacion))" />
 					}
 				</div>
-				<div class="col-span-3">
+				<div class="col-span-6 md:col-span-3">
 					<IUInputNumeric Label="Orden"
 									Placeholder="Escriba el orden del formulario..."
 									TValue="short"
@@ -72,7 +72,7 @@
 		</Body>
 	</IUCard>
 
-	<IUCard CustomClass="col-span-6">
+	<IUCard CustomClass="col-span-12 md:col-span-6">
 		<Header>
 			<div class="flex justify-between">
 				<h3 class="text-lg font-semibold text-gray-900">Datos de la pregunta</h3>
@@ -95,7 +95,7 @@
 					}
 				</div>
 
-				<div class="col-span-6">
+				<div class="col-span-12 md:col-span-6">
 					<IUSelect TItem="SelectorGenerico<short>"
 							  TValue="short"
 							  Label="Tipo de pregunta"
@@ -112,7 +112,7 @@
 					}
 				</div>
 
-				<div class="col-span-3">
+				<div class="col-span-6 md:col-span-3">
 					<IUInputNumeric Label="Ponderacion"
 									Placeholder="Escriba la ponderacion..."
 									TValue="double"
@@ -123,7 +123,8 @@
 						<IULabelError ListaErrores="@_validatorHelperPregunta.GetErrores(nameof(Pregunta.Ponderacion))" />
 					}
 				</div>
-				<div class="col-span-3">
+
+				<div class="col-span-6 md:col-span-3">
 					<IUInputNumeric Label="Orden"
 									Placeholder="Escriba el orden..."
 									TValue="short"
@@ -135,7 +136,7 @@
 					}
 				</div>
 
-				<div class="col-span-2 mt-4">
+				<div class="col-span-4 md:col-span-2 mt-4">
 					<IUInputCheckbox Label="Activo"
 									 @bind-Value="Pregunta.Activo" />
 					@if (_validatorHelperPregunta.TieneErrores(nameof(Pregunta.Activo)))
@@ -143,7 +144,7 @@
 						<IULabelError ListaErrores="@_validatorHelperPregunta.GetErrores(nameof(Pregunta.Activo))" />
 					}
 				</div>
-				<div class="col-span-2 mt-4">
+				<div class="col-span-4 md:col-span-3 mt-4">
 					<IUInputCheckbox Label="Requerido"
 									 @bind-Value="Pregunta.Requerido" />
 					@if (_validatorHelperPregunta.TieneErrores(nameof(Pregunta.Activo)))
@@ -151,7 +152,7 @@
 						<IULabelError ListaErrores="@_validatorHelperPregunta.GetErrores(nameof(Pregunta.Requerido))" />
 					}
 				</div>
-				<div class="col-span-3 mt-4">
+				<div class="col-span-6 md:col-span-4 mt-4">
 					<IUInputCheckbox Label="Habilitar Opciones"
 									 @bind-Value="HabilitarOpciones" />
 				</div>
@@ -191,7 +192,7 @@
 	</IUCard>
 
 
-	<IUCard CustomClass="col-span-12">
+	<IUCard CustomClass="col-span-12 md:col-span-12">
 		<Header>
 			<div class="flex justify-between">
 				<h3 class="text-lg font-semibold text-gray-900">Lista de preguntas</h3>
