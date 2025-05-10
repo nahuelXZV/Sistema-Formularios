@@ -1,0 +1,128 @@
+﻿@using WebClient.Components.Shared.Elements
+@using Domain.DTOs.Configuration
+@using WebClient.Models.Shared;
+@using Domain.DTOs.Forms;
+
+@inherits Components.MainBaseComponent;
+
+<div class="grid grid-cols-12 gap-2 p-2">
+	<IUCard CustomClass="col-span-12 md:col-span-6">
+		<Header>
+			<h3 class="text-lg font-semibold text-gray-900">Datos del grupo</h3>
+		</Header>
+
+		<Body>
+			<div class="grid grid-cols-12 gap-2">
+				<div class="col-span-12">
+					<IUInputText Label="Nombre"
+								 Placeholder="Escriba el nombre del grupo..."
+								 @bind-Value="Grupo.Nombre"
+								 Required=true />
+					@if (_validatorHelper.TieneErrores(nameof(Grupo.Nombre)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Grupo.Nombre))" />
+					}
+				</div>
+
+				<div class="col-span-6 md:col-span-12">
+					<IUTextArea Label="Descripcion"
+								Placeholder="Escriba una pequeña descripcion..."
+								@bind-Value="Grupo.Descripcion"
+								Rows="2"
+								Required=true />
+					@if (_validatorHelper.TieneErrores(nameof(Grupo.Descripcion)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Grupo.Descripcion))" />
+					}
+				</div>
+
+				<div class="col-span-3">
+					<label class="block mb-2 ml-2 text-sm font-medium text-gray-900 dark:text-white">Estado</label>
+					<IUInputCheckbox Label="Activo" @bind-Value="Grupo.Activo" />
+				</div>
+
+			</div>
+		</Body>
+	</IUCard>
+
+	<IUCard CustomClass="col-span-12 md:col-span-6">
+		<Header>
+			<div class="flex justify-between">
+				<h3 class="text-lg font-semibold text-gray-900">Formularios</h3>
+				<IUButton Text="Agregar"
+						  IconCss="fa fa-plus"
+						  OnClick="RegistrarFormulario" />
+			</div>
+		</Header>
+
+		<Body>
+			<div class="grid grid-cols-12 gap-2">
+
+				<div class="col-span-12 md:col-span-10">
+					<IUSelect TItem="FormularioDTO"
+							  TValue="long"
+							  Label="Selecciona un formulario"
+							  Placeholder="Escoge un formulario"
+							  Options="@ListaFormularios"
+							  GetText="@(c => c.Nombre)"
+							  GetValue="@(c => c.Id)"
+							  @bind-Value="FormularioIdSeleccionado"
+							  Required="true" />
+				</div>
+			</div>
+		</Body>
+	</IUCard>
+
+	<IUCard CustomClass="col-span-12 md:col-span-12">
+		<Header>
+			<div class="flex justify-between">
+				<h3 class="text-lg font-semibold text-gray-900">Lista de formularios</h3>
+			</div>
+		</Header>
+		<Body>
+			<IUTable>
+				<HeaderContent>
+					<tr>
+						<th class="px-6 py-3">Id</th>
+						<th class="px-6 py-3">Nombre</th>
+						<th class="px-6 py-3">Ponderacion</th>
+						<th class="px-6 py-3">Activo</th>
+						<th class="px-6 py-3"></th>
+					</tr>
+				</HeaderContent>
+				<BodyContent>
+					@foreach (var formulario in ListaFormulariosAsociados)
+					{
+						<tr class="hover:bg-gray-50 transition duration-150 ease-in-out">
+							<td class="px-6 py-4">@formulario.Id</td>
+							<td class="px-6 py-4">@formulario.Nombre</td>
+							<td class="px-6 py-4">@formulario.Ponderacion</td>
+							<td class="px-6 py-4">
+								@if (formulario.Activo)
+								{
+									<i class="fa fa-check text-green-500"></i>
+								}
+								else
+								{
+									<i class="fa fa-times text-red-500"></i>
+								}
+							</td>
+							<td class="px-6 py-4 flex">
+								@* <IUButton IconCss="fa fa-pencil" *@
+								@* 		  Text="Editar" *@
+								@* 		  OnClick="@(() => EditarPregunta(pregunta.Id))" /> *@
+								@if (formulario.Id < 0)
+								{
+									<IUButton IconCss="fa fa-trash"
+											  Text="Eliminar"
+											  OnClick="@(() => DesvincularFormulario(formulario.Id))" />
+								}
+							</td>
+						</tr>
+					}
+				</BodyContent>
+			</IUTable>
+
+		</Body>
+	</IUCard>
+</div>

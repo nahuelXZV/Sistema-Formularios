@@ -1,4 +1,4 @@
-﻿using EntidadModel = Domain.Entities.Configuration.Entidad;
+using EntidadModel = Domain.Entities.Configuration.Entidad;
 using AutoMapper;
 using Domain.Interfaces.Shared;
 using Domain.Common;

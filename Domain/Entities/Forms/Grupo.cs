@@ -9,4 +9,5 @@ public class Grupo : Entity
     public DateTime FechaCreacion { get; set; }
     public bool Activo { get; set; }
 
+    public List<GrupoFormulario> ListaFormularios { get; set; }
 }

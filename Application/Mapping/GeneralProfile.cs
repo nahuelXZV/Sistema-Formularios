@@ -28,6 +28,8 @@ public class GeneralProfile : Profile
         CreateMap<Formulario, FormularioDTO>()
             .ForMember(dest => dest.ListaPreguntas, opt => opt.MapFrom(src => src.ListaPreguntas));
         CreateMap<Concepto, ConceptoDTO>();
+        CreateMap<Grupo, GrupoDTO>();
+        CreateMap<GrupoFormulario, GrupoFormularioDTO>();
         #endregion
 
         #region  DTO To Entity
@@ -43,6 +45,8 @@ public class GeneralProfile : Profile
         CreateMap<FormularioDTO, Formulario>()
          .ForMember(dest => dest.ListaPreguntas, opt => opt.MapFrom(src => src.ListaPreguntas));
         CreateMap<ConceptoDTO, Concepto>();
+        CreateMap<GrupoDTO, Grupo>();
+        CreateMap<GrupoFormularioDTO, GrupoFormulario>();
         #endregion
 
     }

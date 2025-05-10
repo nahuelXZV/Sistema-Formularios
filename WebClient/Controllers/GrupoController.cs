@@ -8,11 +8,11 @@ using WebClient.Services;
 
 namespace WebClient.Controllers;
 
-public class FormularioController : MainController
+public class GrupoController : MainController
 {
-    private readonly ILogger<FormularioController> _logger;
+    private readonly ILogger<GrupoController> _logger;
 
-    public FormularioController(ViewModelFactory viewModelFactory, ILogger<FormularioController> logger, IAppServices appServices)
+    public GrupoController(ViewModelFactory viewModelFactory, ILogger<GrupoController> logger, IAppServices appServices)
         : base(viewModelFactory, appServices)
     {
         _logger = logger;
@@ -21,7 +21,7 @@ public class FormularioController : MainController
     [HttpGet]
     public async Task<IActionResult> Listado()
     {
-        var model = _viewModelFactory.Create<FormularioViewModel>();
+        var model = _viewModelFactory.Create<GrupoViewModel>();
         return View(model);
     }
 
@@ -30,32 +30,33 @@ public class FormularioController : MainController
     {
         try
         {
-            var listaGestiones = await _appServices.FormularioService.GetAll(new FilterDTO()
+            var listaGrupos = await _appServices.GrupoService.GetAll(new FilterDTO()
             {
                 Limit = limit,
                 Offset = offset,
                 Search = search
             });
 
-            return Ok(listaGestiones);
+            return Ok(listaGrupos);
         }
         catch
         {
-            return Ok(new ResponseFilterDTO<FormularioDTO>() { Total = 0, Data = new() });
+            return Ok(new ResponseFilterDTO<GrupoDTO>() { Total = 0, Data = new() });
         }
     }
 
     [HttpPost]
     public async Task<IActionResult> Crear([FromForm] long id = 0)
     {
-        var model = _viewModelFactory.Create<FormularioViewModel>();
+        var model = _viewModelFactory.Create<GrupoViewModel>();
 
         model.IncluirBlazorComponents = true;
+        model.ListaFormularios = (await _appServices.FormularioService.GetAll(null)).Data;
 
         if (id != 0)
-            model.Formulario = await _appServices.FormularioService.GetById(id);
+            model.Grupo = await _appServices.GrupoService.GetById(id);
         else
-            model.Formulario = new();
+            model.Grupo = new();
 
         return View(model);
     }
@@ -65,8 +66,8 @@ public class FormularioController : MainController
     {
         try
         {
-            await _appServices.FormularioService.Delete(id);
-            this.AddSuccessTempMessage("Formulario eliminado correctamente");
+            await _appServices.GrupoService.Delete(id);
+            this.AddSuccessTempMessage("Grupo eliminado correctamente");
         }
         catch (Exception ex)
         {
