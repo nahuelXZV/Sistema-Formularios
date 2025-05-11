@@ -30,6 +30,7 @@ public class GeneralProfile : Profile
         CreateMap<Concepto, ConceptoDTO>();
         CreateMap<Grupo, GrupoDTO>();
         CreateMap<GrupoFormulario, GrupoFormularioDTO>();
+        CreateMap<RespuestaGrupo, RespuestaGrupoDTO>();
         #endregion
 
         #region  DTO To Entity
@@ -47,6 +48,7 @@ public class GeneralProfile : Profile
         CreateMap<ConceptoDTO, Concepto>();
         CreateMap<GrupoDTO, Grupo>();
         CreateMap<GrupoFormularioDTO, GrupoFormulario>();
+        CreateMap<RespuestaGrupoDTO, RespuestaGrupo>();
         #endregion
 
     }

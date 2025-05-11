@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Folder Include="Common\Shared\" />
+    <Folder Include="Components\Forms\Respuestas\" />
   </ItemGroup>
 
 </Project>

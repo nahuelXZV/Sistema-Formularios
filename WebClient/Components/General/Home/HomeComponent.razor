@@ -1,2 +1,125 @@
-﻿
-<p>HOME</p>
+﻿@using WebClient.Components.Shared.Elements
+@using Domain.DTOs.Configuration;
+@using Domain.DTOs.Forms;
+@inherits Components.MainBaseComponent;
+
+<div class="grid grid-cols-12 gap-2 p-2">
+	<IUCard CustomClass="col-span-12 md:col-span-5">
+		<Header>
+			<div class="flex flex-col md:flex-row md:justify-between">
+				<h3 class="text-lg font-semibold text-gray-900">Responder formulario</h3>
+				<IUButton Text="Crear Respuesta"
+						  IconCss="fa fa-plus"
+						  OnClick="CrearRespuesta" />
+			</div>
+		</Header>
+
+		<Body>
+			<div class="grid grid-cols-12 gap-2">
+
+				<div class="col-span-12">
+					<IUSelect TItem="EntidadDTO"
+							  TValue="long"
+							  Label="Selecciona una empresa"
+							  Placeholder="Escoge una empresa"
+							  Options="@ListaEmpresas"
+							  GetText="@(c => c.Nombre)"
+							  GetValue="@(c => c.Id)"
+							  @bind-Value="RespuestaGrupo.EntidadId"
+							  Required="true" />
+				</div>
+				<div class="col-span-12">
+					<IUSelect TItem="GestionDTO"
+							  TValue="long"
+							  Label="Selecciona una gestion"
+							  Placeholder="Escoge una gestion"
+							  Options="@ListaGestiones"
+							  GetText="@(c => c.Nombre)"
+							  GetValue="@(c => c.Id)"
+							  @bind-Value="RespuestaGrupo.GestionId"
+							  Required="true" />
+				</div>
+				<div class="col-span-12">
+					<IUSelect TItem="GrupoDTO"
+							  TValue="long"
+							  Label="Selecciona un grupo de formularios"
+							  Placeholder="Escoge un grupo"
+							  Options="@ListaGrupos"
+							  GetText="@(c => c.Nombre)"
+							  GetValue="@(c => c.Id)"
+							  @bind-Value="RespuestaGrupo.GrupoId"
+							  Required="true" />
+				</div>
+			</div>
+		</Body>
+	</IUCard>
+	<IUCard CustomClass="col-span-12 md:col-span-7">
+		<Header>
+			<div class="flex flex-col md:flex-row md:justify-between">
+				<h3 class="text-lg font-semibold text-gray-900">Listado respuestas</h3>
+				<div style="display:flex;align-items: center;gap:10px;">
+					<IUSelect TItem="GestionDTO"
+							  TValue="long"
+							  Label="Selecciona una gestion"
+							  Placeholder="Escoge una gestion"
+							  Options="@ListaGestiones"
+							  GetText="@(c => c.Nombre)"
+							  GetValue="@(c => c.Id)"
+							  @bind-Value="GestionIdSeleccionado"
+							  Required="true" />
+
+					<div class="mr-2">
+						<label class="invisible mb-2 text-sm font-medium text-gray-900 dark:text-white">a</label>
+						<IUButton Text="Filtrar"
+								  IconCss="fa fa-filter"
+								  OnClick="ObtenerRespuestas" />
+					</div>
+				</div>
+			</div>
+		</Header>
+
+		<Body>
+			<IUTable>
+				<HeaderContent>
+					<tr>
+						<th class="px-6 py-3">Empresa</th>
+						<th class="px-6 py-3">Grupo formulario</th>
+						<th class="px-6 py-3">Fecha registrado</th>
+						<th class="px-6 py-3"></th>
+					</tr>
+				</HeaderContent>
+				<BodyContent>
+					@foreach (var respuesta in ListaRespuestasPaginada)
+					{
+						<tr class="hover:bg-gray-50 transition duration-150 ease-in-out">
+							<td class="px-6 py-4">@(respuesta?.Entidad?.Nombre ?? "")</td>
+							<td class="px-6 py-4">@(respuesta?.Grupo?.Nombre ?? "")</td>
+							<td class="px-6 py-4">@(respuesta?.Fecha?.ToString("dd/MM/yyyy") ?? "")</td>
+							<td class="px-6 py-4 flex">
+								<IUButton IconCss="fa fa-eye"
+										  Text="Ver"
+										  OnClick="@(() => VerRespuesta(respuesta.Id))" />
+							</td>
+						</tr>
+					}
+				</BodyContent>
+			</IUTable>
+			<div class="flex justify-center items-center gap-2 mt-4">
+				<button class="px-3 py-1 bg-gray-200 rounded disabled:opacity-50" @onclick="PaginaAnterior" disabled="@(!PuedeRetroceder)">Anterior</button>
+				<span>Página @PaginaActual de @TotalPaginas</span>
+				<button class="px-3 py-1 bg-gray-200 rounded disabled:opacity-50" @onclick="PaginaSiguiente" disabled="@(!PuedeAvanzar)">Siguiente</button>
+			</div>
+		</Body>
+	</IUCard>
+
+	<IUCard CustomClass="col-span-12">
+		<Header>
+			<h3 class="text-lg font-semibold text-gray-900">Reportes</h3>
+		</Header>
+
+		<Body>
+			<div class="grid grid-cols-12 gap-2">
+			</div>
+		</Body>
+	</IUCard>
+</div>

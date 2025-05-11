@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using WebClient.Models;
 using WebClient.Services;
-using WebClient.Models;
 
 namespace WebClient.Controllers;
 
@@ -18,10 +18,13 @@ public class HomeController : MainController
     }
 
     [AllowAnonymous]
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
         var model = _viewModelFactory.Create<HomeViewModel>();
         model.IncluirBlazorComponents = true;
+        model.ListaEmpresas = (await _appServices.EntidadService.GetAll(null)).Data;
+        model.ListaGestiones = (await _appServices.GestionService.GetAll(null)).Data;
+        model.ListaGrupos = (await _appServices.GrupoService.GetAll(null)).Data;
         return View(model);
     }
 

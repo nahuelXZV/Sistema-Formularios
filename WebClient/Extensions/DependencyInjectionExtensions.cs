@@ -42,6 +42,7 @@ public static class DependencyInjectionExtensions
         services.AddScoped<IGestionService, GestionService>();
         services.AddScoped<IFormularioService, FormularioService>();
         services.AddScoped<IGrupoService, GrupoService>();
+        services.AddScoped<IRespuestaGrupoService, RespuestaGrupoService>();
         #endregion
 
         return services;

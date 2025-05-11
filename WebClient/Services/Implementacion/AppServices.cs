@@ -19,6 +19,7 @@ public class AppServices : IAppServices
     private IGestionService _gestionService;
     private IFormularioService _formularioService;
     private IGrupoService _grupoService;
+    private IRespuestaGrupoService _respuestaGrupoService;
 
 
     public AppServices(IServiceProvider serviceProvider, ILogger<AppServices> logger)
@@ -43,5 +44,6 @@ public class AppServices : IAppServices
     public IGestionService GestionService => _gestionService ??= _serviceProvider.GetService<IGestionService>();
     public IFormularioService FormularioService => _formularioService ??= _serviceProvider.GetService<IFormularioService>();
     public IGrupoService GrupoService => _grupoService ??= _serviceProvider.GetService<IGrupoService>();
+    public IRespuestaGrupoService RespuestaGrupoService => _respuestaGrupoService ??= _serviceProvider.GetService<IRespuestaGrupoService>();
     #endregion
 }

@@ -17,5 +17,6 @@ public interface IAppServices
     public IGestionService GestionService { get; }
     public IFormularioService FormularioService { get; }
     public IGrupoService GrupoService { get; }
+    public IRespuestaGrupoService RespuestaGrupoService { get; }
 
 }

@@ -23,6 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Forms\RespuestaFormulario\Command\" />
+    <Folder Include="Features\Forms\RespuestaFormulario\Queries\" />
     <Folder Include="Features\Segurity\Auth\Queries\" />
     <Folder Include="Features\Segurity\Module\Commands\" />
     <Folder Include="Wrappers\" />

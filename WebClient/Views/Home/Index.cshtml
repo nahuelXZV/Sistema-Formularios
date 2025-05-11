@@ -1,5 +1,6 @@
 ﻿@using WebClient.Components
 @using WebClient.Components.General.Home
+@model HomeViewModel
 
 @{
 	ViewData["Title"] = "Home Page";
@@ -10,7 +11,9 @@
 	var componentName = nameof(HomeComponent);
 	var componentParameters = new Dictionary<string, object>
 	{
-		// { nameof(FeriadoCrearComponent.Feriado), Model.Feriado  },
+		{ nameof(HomeComponent.ListaEmpresas), Model.ListaEmpresas},
+		{ nameof(HomeComponent.ListaGrupos), Model.ListaGrupos},
+		{ nameof(HomeComponent.ListaGestiones), Model.ListaGestiones},
 	};
 }
 
@@ -23,9 +26,7 @@
 
 	</nav>
 }
-<div class="rounded-2xl border border-gray-200 bg-white px-3 py-3">
-	<component type="typeof(MainComponent)"
-			   param-ComponentTypeName="typeof(HomeComponent).FullName"
-			   param-Parameters="@componentParameters"
-			   render-mode="ServerPrerendered" />
-</div>
+<component type="typeof(MainComponent)"
+		   param-ComponentTypeName="typeof(HomeComponent).FullName"
+		   param-Parameters="@componentParameters"
+		   render-mode="ServerPrerendered" />

@@ -13,4 +13,5 @@ public class RespuestaGrupo : Entity
 
     public Gestion Gestion { get; set; }
     public Entidad Entidad { get; set; }
+    public Grupo Grupo { get; set; }
 }
